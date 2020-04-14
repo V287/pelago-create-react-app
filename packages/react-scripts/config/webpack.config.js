@@ -422,12 +422,13 @@ module.exports = function(webpackEnv) {
                 ),
                 // @remove-on-eject-end
                 plugins: [
+                  // Support dynamic importing of antd components
                   [
                     'import',
                     {
                       libraryName: 'antd',
                       libraryDirectory: 'es',
-                      style: true,
+                      style: true, // style: true for 'less' support
                     },
                   ],
                   [
@@ -559,6 +560,8 @@ module.exports = function(webpackEnv) {
                 'sass-loader'
               ),
             },
+            // Opt-in support for LESS (using the .less extension).
+            // Needed to support dynamic imports of antd component stylesheets.
             {
               test: lessRegex,
               exclude: lessModuleRegex,
