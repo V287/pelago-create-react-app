@@ -1,7 +1,35 @@
-# react-scripts
+# pelago-react-scripts
 
-This package includes scripts and configuration used by [Create React App](https://github.com/facebook/create-react-app).<br>
-Please refer to its documentation:
+This package includes scripts and configuration used by [Create React App](https://github.com/facebook/create-react-app) with custom modifications for Pelago.<br>
 
-- [Getting Started](https://facebook.github.io/create-react-app/docs/getting-started) – How to create a new app.
-- [User Guide](https://facebook.github.io/create-react-app/) – How to develop apps bootstrapped with Create React App.
+## Usage
+
+Replace the `react-scripts` dependency on your respective app's `package.json` file with `pelago-react-scripts` before doing a `yarn install`
+
+## Customizations
+
+- Support dynamic imports for antd component stylesheets
+- Replace momentjs with dayjs for antd components that need a datetime library ( eg. DatePicker )
+- Add less-loader to support .less and .module.less files
+
+## Third party modules / plugins
+
+- less-loader
+- babel-plugin-import
+- antd-dayjs-webpack-plugin
+
+## Development setup and workflow
+
+Currently the repo has the following remotes setup
+
+- origin (git@github.com:V287/create-react-app.git) - To keep track of updates made on the repo like any normal repo
+- upstream (git@github.com:facebook/create-react-app.git) - To rebase the latest stable release of CRA with master
+
+To rebase with upstream:
+
+- Run `git fetch --tags` to get the latest tags from the respective heads.
+- Run `git rebase --onto {latest-tag} {your-branch-name}` and raise a PR.
+
+## Releasing
+
+This package has to be bundled and shipped as an npm module. Currently the package is under @sai.mahadevan's account. We will eventually move it to a common pelago account.
