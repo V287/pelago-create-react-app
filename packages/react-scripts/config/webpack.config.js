@@ -571,6 +571,10 @@ module.exports = function(webpackEnv) {
                   // variable overrides for antd default less variables
                   // https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less
                   modifyVars: themeVariables,
+                  // Potential risk allowing inline js -> https://stackoverflow.com/a/50686643/13430933
+                  // However, this is required to support antd on less@^3.x.x unless we write our own plugins
+                  // to expose the same
+                  javascriptEnabled: true,
                 }
               ),
               // Don't consider CSS imports dead code even if the
