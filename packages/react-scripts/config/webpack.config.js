@@ -33,6 +33,7 @@ const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpackPlugin');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
 const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin');
+const lessToJs = require('less-vars-to-js');
 // @remove-on-eject-begin
 const getCacheIdentifier = require('react-dev-utils/getCacheIdentifier');
 // @remove-on-eject-end
@@ -62,7 +63,10 @@ const lessRegex = /\.less$/;
 const lessModuleRegex = /\.module\.less$/;
 const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
-
+// Read the antd variable overrides from respective app's `ant-default-vars.less`
+const themeVariables = lessToJs(
+  fs.readFileSync(path.join(process.cwd(), 'src/ant-default-vars.less'), 'utf8')
+);
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
 module.exports = function(webpackEnv) {
@@ -81,7 +85,11 @@ module.exports = function(webpackEnv) {
   const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1));
 
   // common function to get style loaders
-  const getStyleLoaders = (cssOptions, preProcessor) => {
+
+  // Each loader's options prop seem to be typed and so throws an error even if we pass a
+  // null / undefined prop as part of `cssOptions`. Hence passing a separate `additionalCssOptions` param
+  // to expose the ability to add custom css options.
+  const getStyleLoaders = (cssOptions, preProcessor, customCssOptions) => {
     const loaders = [
       isEnvDevelopment && require.resolve('style-loader'),
       isEnvProduction && {
@@ -134,6 +142,7 @@ module.exports = function(webpackEnv) {
           loader: require.resolve(preProcessor),
           options: {
             sourceMap: true,
+            ...customCssOptions,
           },
         }
       );
@@ -557,7 +566,12 @@ module.exports = function(webpackEnv) {
                   importLoaders: 3,
                   sourceMap: isEnvProduction && shouldUseSourceMap,
                 },
-                'less-loader'
+                'less-loader',
+                {
+                  // variable overrides for antd default less variables
+                  // https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less
+                  modifyVars: themeVariables,
+                }
               ),
               // Don't consider CSS imports dead code even if the
               // containing package claims to have no side effects.
