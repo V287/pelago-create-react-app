@@ -2,7 +2,7 @@
 
 This is a fork of the actual [Create React App](https://create-react-app.dev/) aimed at providing the necessary flexibility needed without losing support from CRA by ejecting it or using wrappers that internally eject CRA like [customize-cra](https://github.com/arackaf/customize-cra)
 
-Currently the app is forked off the `create-react-app v3.4.1`
+Currently the app is forked off the `create-react-app v4.0.0`
 
 ## Quick Overview
 
