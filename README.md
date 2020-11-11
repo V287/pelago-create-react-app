@@ -1,6 +1,6 @@
 # Pelago Create React App
 
-This is a fork of the actual [Create React App](https://create-react-app.dev/) aimed at providing the necessary flexibility needed without losing support from CRA by ejecting it or using wrappers that internally eject CRA like [customize-cra](https://github.com/arackaf/customize-cra)
+This is a fork of the actual [Create React App](https://create-react-app.dev/) aimed at providing the necessary flexibility needed without losing support from CRA by ejecting it or using wrappers that internally eject CRA like [customize-cra](https://github.com/arackaf/customize-cra). Check this [video](https://www.youtube.com/watch?v=I22TW-33dDE) for reference
 
 Currently the app is forked off the `create-react-app v4.0.0`
 

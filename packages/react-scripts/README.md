@@ -30,6 +30,8 @@ To rebase with upstream:
 - Run `git fetch --tags` to get the latest tags from the respective heads.
 - Run `git rebase --onto {latest-tag} {your-branch-name}` and raise a PR.
 
+- If the above doesn't work, try merging the upstream tag with ur feature branch `git merge {latest-tag} {your-branch-name}`
+
 ## Releasing
 
 This package has to be bundled and shipped as an npm module. Currently the package is under @sai.mahadevan's account. We will eventually move it to a common pelago account.
